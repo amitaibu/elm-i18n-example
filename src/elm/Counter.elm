@@ -1,7 +1,8 @@
 module Counter where
 
 import Effects exposing (Effects)
-import Html exposing (..)
+import Html exposing (div, text, Html)
+import String.Interpolate exposing (interpolate)
 
 -- MODEL
 
@@ -29,6 +30,7 @@ update action model =
 
 -- i18n
 
+type alias TranslationArguments = List String
 
 type alias TranslationSet =
   { english : String
@@ -43,17 +45,17 @@ type Language
   = English
   | Spanish
 
-translate : Language -> Translation -> String
-translate lang trans =
+translate : Language -> Translation -> TranslationArguments -> String
+translate lang trans args =
   let
-    set =
+    translationSet =
       case trans of
         Login       -> TranslationSet "Please login" "Por favor login"
         WelcomeBack -> TranslationSet "Welcome back {0}" "Bienvenido {0}"
   in
     case lang of
-      English -> .english set
-      Spanish -> .spanish set
+      English -> interpolate (.english translationSet) args
+      Spanish -> interpolate (.spanish translationSet) args
 
 
 -- VIEW
@@ -61,6 +63,6 @@ translate lang trans =
 view : Signal.Address Action -> Model -> Html
 view address model =
   div []
-    [ div [] [text <| translate English Login]
-    , div [] [text <| translate Spanish Login]
+    [ div [] [text <| translate English Login []]
+    , div [] [text <| translate Spanish Login []]
     ]
