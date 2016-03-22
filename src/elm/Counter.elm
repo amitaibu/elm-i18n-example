@@ -65,4 +65,6 @@ view address model =
   div []
     [ div [] [text <| translate English Login []]
     , div [] [text <| translate Spanish Login []]
+    , div [] [text <| translate English WelcomeBack ["amitaibu"]]
+    , div [] [text <| translate Spanish WelcomeBack ["amitaibu"]]
     ]
