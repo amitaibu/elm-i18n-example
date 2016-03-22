@@ -29,7 +29,7 @@ update action model =
 
 -- i18n
 
-type alias TranslationArguments = List String
+
 
 type alias TranslationSet =
   { english : String
