@@ -2,9 +2,6 @@ module Counter where
 
 import Effects exposing (Effects)
 import Html exposing (..)
-import Html.Attributes exposing (style)
-import Html.Events exposing (onClick)
-
 
 -- MODEL
 
@@ -32,16 +29,31 @@ update action model =
 
 -- i18n
 
-type Translation = Translation
+
+type alias TranslationSet =
   { english : String
   , spanish : String
   }
 
-type Translations
-  = Login Translation
-  | Logout Translation
-  | WelcomeBack Translation
+type Translation
+  = Login
+  | WelcomeBack
 
+type Language
+  = English
+  | Spanish
+
+translate : Language -> Translation -> String
+translate lang trans =
+  let
+    set =
+      case trans of
+        Login       -> TranslationSet "Please login" "Por favor login"
+        WelcomeBack -> TranslationSet "Welcome back {0}" "Bienvenido {0}"
+  in
+    case lang of
+      English -> .english set
+      Spanish -> .spanish set
 
 
 -- VIEW
@@ -49,7 +61,6 @@ type Translations
 view : Signal.Address Action -> Model -> Html
 view address model =
   div []
-    [ button [ onClick address Decrement ] [ text "-" ]
-    , div [ countStyle ] [ text (toString model) ]
-    , button [ onClick address Increment ] [ text "+" ]
+    [ div [] [text <| translate English Login]
+    , div [] [text <| translate Spanish Login]
     ]
