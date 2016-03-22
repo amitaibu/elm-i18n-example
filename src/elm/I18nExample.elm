@@ -50,7 +50,7 @@ translate lang trans =
     translationSet =
       case trans of
         Login ->
-          TranslationSet "Please login" "Por favor login"
+          TranslationSet "Please login" "Por favor haga login"
 
         WelcomeBack val ->
           TranslationSet ("Welcome back " ++ val.name) ("Bienvenido "  ++ val.name)
