@@ -39,23 +39,25 @@ type alias TranslationSet =
 
 type Translation
   = Login
-  | WelcomeBack
+  | WelcomeBack {name : String}
 
 type Language
   = English
   | Spanish
 
-translate : Language -> Translation -> TranslationArguments -> String
-translate lang trans args =
+translate : Language -> Translation -> String
+translate lang trans =
   let
     translationSet =
       case trans of
-        Login       -> TranslationSet "Please login" "Por favor login"
-        WelcomeBack -> TranslationSet "Welcome back {0}" "Bienvenido {0}"
+        Login ->
+          TranslationSet "Please login" "Por favor login"
+        WelcomeBack val ->
+          TranslationSet ("Welcome back " ++ val.name) ("Bienvenido "  ++ val.name)
   in
     case lang of
-      English -> interpolate (.english translationSet) args
-      Spanish -> interpolate (.spanish translationSet) args
+      English -> .english translationSet
+      Spanish -> .spanish translationSet
 
 
 -- VIEW
@@ -63,8 +65,8 @@ translate lang trans args =
 view : Signal.Address Action -> Model -> Html
 view address model =
   div []
-    [ div [] [text <| translate English Login []]
-    , div [] [text <| translate Spanish Login []]
-    , div [] [text <| translate English WelcomeBack ["amitaibu"]]
-    , div [] [text <| translate Spanish WelcomeBack ["amitaibu"]]
+    [ div [] [text <| translate English Login]
+    , div [] [text <| translate Spanish Login]
+    , div [] [text <| translate English <| WelcomeBack {name = "amitaibu"}]
+    , div [] [text <| translate Spanish <| WelcomeBack {name = "amitaibu"}]
     ]
