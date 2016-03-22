@@ -2,7 +2,6 @@ module I18nExample where
 
 import Effects exposing (Effects)
 import Html exposing (div, text, Html)
-import String.Interpolate exposing (interpolate)
 
 -- MODEL
 
