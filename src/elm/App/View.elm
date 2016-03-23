@@ -10,13 +10,14 @@ import Html.Events exposing (onClick)
 view : Signal.Address Action -> Model -> Html
 view address model =
   let
-    childAddress =
-      Signal.forwardTo address App.Update.ChildEventAction
+    languageSwitcherAddress =
+      Signal.forwardTo address App.Update.ChildLanguageSwitcherAction
 
-    context =
-      { companies = model.companies }
+    welcomeAddress =
+      Signal.forwardTo address App.Update.ChildWelcomeAction
   in
     div
       []
-      [ LanguageSwitcher.View.view context childAddress model.languageSwitcher
+      [ div [] [ LanguageSwitcher.View.view context childAddress model.languageSwitcher ]
+      , div [] [ Welcome.View.view model.currentLanguage welcomeAddress model.welcome ]
       ]

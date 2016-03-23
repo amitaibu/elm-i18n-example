@@ -1,7 +1,6 @@
 module Translation.Utils
   ( Language
-  , TranslationId
-  , TranslationSet
+  , TranslationId (..)
   , translate
   )
   where
