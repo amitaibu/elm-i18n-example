@@ -7,9 +7,6 @@ import Html exposing (a, div, h2, i, li, node, span, text, ul, button, Html)
 import Html.Attributes exposing (class, classList, id, href, style, target, attribute)
 import Html.Events exposing (onClick)
 
-
-type alias Page = App.Page
-
 view : Signal.Address Action -> Model -> Html
 view address model =
   let
