@@ -52,8 +52,8 @@ translate lang trans =
         Login ->
           TranslationSet "Please login" "Por favor haga login"
 
-        WelcomeBack val ->
-          TranslationSet ("Welcome back " ++ val.name) ("Bienvenido "  ++ val.name)
+        WelcomeBack {name} ->
+          TranslationSet ("Welcome back " ++ name) ("Bienvenido "  ++ name)
   in
     case lang of
       English -> .english translationSet
